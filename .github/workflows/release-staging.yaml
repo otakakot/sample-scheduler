@@ -56,5 +56,8 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
       - name: Push Release Tag
         run: |
+          git config --global credential.helper 'github-apps -privatekey ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }} -appid ${{ secrets.BOT_GITHUB_APP_ID }} -login ${{ github.repository_owner }}'
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git tag ${{ needs.prepare.outputs.tag-name }}
           git push origin ${{ needs.prepare.outputs.tag-name }}
