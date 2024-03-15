@@ -41,19 +41,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: prepare
     steps:
-      - name: Generate token
-        id: generate-token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ secrets.BOT_GITHUB_APP_ID }}
-          private-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           repository: otakakot/sample-resource
           ref: main
-          token: ${{ steps.generate-token.outputs.token }}
       - name: Push Release Tag
         run: |
           git config --global credential.helper 'github-apps -privatekey ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }} -appid ${{ secrets.BOT_GITHUB_APP_ID }} -login ${{ github.repository_owner }}'
