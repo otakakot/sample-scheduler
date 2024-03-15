@@ -47,14 +47,11 @@ jobs:
         with:
           app-id: ${{ secrets.BOT_GITHUB_APP_ID }}
           private-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v2
         with:
-          fetch-depth: 0
-          repository: otakakot/sample-resource
-          ref: main
           token: ${{ steps.generate-token.outputs.token }}
-      - name: Push Release Tag
-        run: |
-          git tag ${{ needs.prepare.outputs.tag-name }}
-          git push origin ${{ needs.prepare.outputs.tag-name }}
+          repository: otakakot/sammple-resource
+          event-type: ref
+          client-payload: '{"ref": "${{ github.ref_name }}"}'
+  
