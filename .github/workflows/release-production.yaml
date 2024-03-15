@@ -1,4 +1,4 @@
-name: release staging trigger
+name: release production trigger
 run-name: ${{ github.workflow }} (${{ github.ref_name }} by ${{ github.actor }})
 concurrency: ${{ github.workflow }}
 on:
