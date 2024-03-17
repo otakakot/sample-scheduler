@@ -11,8 +11,8 @@ on:
           `2006-01-02-1` のように指定します。
         required: true
         type: string
-  schedule:
-    - cron: '0 0 * * 3'
+  # schedule:
+  #   - cron: '0 0 * * 3'
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
           app-id: ${{ secrets.BOT_GITHUB_APP_ID }}
           private-key: ${{ secrets.BOT_GITHUB_APP_PRIVATE_KEY }}
       - name: Repository Dispatch
-        uses: peter-evans/repository-dispatch@v2
+        uses: otakakot/repository-dispatch@v1.0.0
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: otakakot/sample-resource
